@@ -1,4 +1,32 @@
 {
   "name": "design-system-build",
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.3.0",
+  "type": "module",
+  "dependencies": {
+    "@pluralsight/headless-styles": "latest",
+    "tslib": "^2.4.1"
+  },
+  "scripts": {
+    "build": "del dist && yarn build:webpack && yarn build:rollup && yarn build:esbuild",
+    "build:minify": "MINIFY=true yarn build",
+    "build:webpack": "webpack",
+    "build:rollup": "rollup -c",
+    "build:esbuild": "esbuild src/entry-headless-styles.js --bundle --outfile=dist/headless-styles-esbuild.js --minify=${MINIFY:-false} --define:process.env.NODE_ENV=\\\"production\\\" --conditions=development --sourcemap=external"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^23.0.5",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "^5.0.1",
+    "@rollup/plugin-terser": "0.1.0",
+    "del-cli": "^5.0.0",
+    "esbuild": "^0.16.7",
+    "rollup": "^3.7.4",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "source-map-loader": "^4.0.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "resolutions": {
+    "@pluralsight/headless-styles": "portal:/Users/joseph-moore/code/experiments/tva/packages/headless-styles"
+  }
 }
